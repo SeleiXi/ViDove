@@ -68,4 +68,4 @@ if __name__ == "__main__":
     # dirty_data_processor.clean_dirty_data(dirty_data_list)
     
     # 给所有空行加上一个句号
-    dirty_data_processor.add_period_to_empty_lines("evaluation/test_data/gemini_eval_result.zh")
+    dirty_data_processor.add_period_to_empty_lines("evaluation/test_data/qwen_eval_result.zh")

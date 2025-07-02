@@ -159,9 +159,9 @@ if __name__ == "__main__":
     
     
     # TEST QWEN
-    generate_eval_result(id_file="./evaluation/test_data/temp.id",
+    generate_eval_result(id_file="./evaluation/test_data/text_data_test.id",
             output="./evaluation/test_data/qwen_eval_result.zh",
-            source_dir="./evaluation/test_data/qwen_results",srt_or_txt="txt") 
+            source_dir="./evaluation/test_data/qwen_results/main_result",srt_or_txt="txt") 
         
     # generate_eval_result(id_file="./evaluation/test_data/text_data_test.id",
     #             output="./evaluation/test_data/qwen_eval_result.zh",
