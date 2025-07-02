@@ -43,3 +43,11 @@ class BleuEvaluator:
             BLEU score
         """
         return self.bleu_model.sentence_score(mt, refs).score 
+    
+if __name__ == "__main__":
+    bleu_evaluator = BleuEvaluator()
+    # mt = "The player is encountering with the Blue Terran's SUV"
+    # mt = "The South Korea player is encountering with the Blue Terran's SCV"
+    mt = "asdasdasdas 123123 asdasda "
+    refs = ["The South Korea player is encountering with the Blue Terran's SCV"]
+    print(bleu_evaluator.evaluate_sentence(mt, refs))
