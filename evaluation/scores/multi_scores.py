@@ -1,5 +1,6 @@
 from comet import download_model, load_from_checkpoint
 from sacrebleu.metrics import BLEU, CHRF, TER
+from bleurt import score
 
 try:
     # 跑./evaluation/的文件的时候用这个
@@ -79,6 +80,13 @@ class multi_scores:
         print(bleu_results)
         bleu_score = bleu_results.score
         return {'bleu_score':bleu_score, 'bleu_results':bleu_results}
+    
+    def calculate_bleurt(self, mts:list, refs:list) -> dict:
+        scorer = score.BleurtScorer(checkpoint="bleurt/test_checkpoint")
+        scores = scorer.score(candidates=mts, references=refs)
+        assert isinstance(scores, list) and len(scores) == 1
+        print("-------------------------------- BLEURT -------------------------------- ")
+        print(scores)
     
     def get_scores(self, src:str, mt:str, ref:str) -> dict:
         comet_score = self.comet_model.predict([{"src":src, "mt":mt, "ref":ref}], batch_size=8, gpus=0).scores[0]
@@ -237,16 +245,23 @@ def cal_all_scores(src_list, mt_list, ref_list, csv_path="./evaluation/test_data
     bleu_score = multi_scores().calculate_bleu(mt_list, [ref_list])
     
     # # 将bleu_score写入csv文件
-    with open("./evaluation/test_data/bleu_result.csv", "a", encoding="utf-8") as f:
-        csv_writer = csv.writer(f)
-        csv_writer.writerow(["BLEU", bleu_score])
+    # with open("./evaluation/test_data/bleu_result.csv", "a", encoding="utf-8") as f:
+    #     csv_writer = csv.writer(f)
+    #     csv_writer.writerow(["BLEU", bleu_score])
     print(f"BLEU: {bleu_score}")
+    print("-------------------------------- BLEURT -------------------------------- ")
+    bleurt_score = multi_scores().calculate_bleurt(mt_list, ref_list)
+    print(f"BLEURT: {bleurt_score}")
+    
+    
+    
     
     # Calculate scores for each example and write to CSV
-    results = multi_scores().calculate_comet_llm_batch(src_list, mt_list, ref_list, csv_path=csv_path)
-    for i, result in enumerate(results):
-        print(result)
+    # results = multi_scores().calculate_comet_llm_batch(src_list, mt_list, ref_list, csv_path=csv_path)
+    # for i, result in enumerate(results):
+    #     print(result)
         
+    results = multi_scores().calculate
     return results  # 返回结果以便其他函数可以使用
 
 if __name__ == "__main__":

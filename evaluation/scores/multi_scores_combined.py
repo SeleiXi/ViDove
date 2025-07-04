@@ -38,6 +38,7 @@ class MultiScores:
         self.bleu_enabled = bleu_enabled
         self.llm_enabled = llm_enabled
         
+        
         # Initialize evaluators based on enabled flags
         if scomet_enabled or dcomet_enabled:
             self.comet_evaluator = CometEvaluator()
@@ -207,7 +208,7 @@ class MultiScores:
 
 # Modified convenience function for backward compatibility
 def cal_all_scores(src_list, mt_list, ref_list, csv_path="./evaluation/test_data/result.csv", 
-                   scomet_enabled=True, dcomet_enabled=True, bleu_enabled=True, llm_enabled=False):
+                   scomet_enabled=True, dcomet_enabled=True, bleu_enabled=True, bleurt_enabled=True, llm_enabled=False):
     """
     Calculate scores for a list of src, mt, and ref with configurable metrics.
     
@@ -232,6 +233,7 @@ def cal_all_scores(src_list, mt_list, ref_list, csv_path="./evaluation/test_data
         dcomet_enabled=dcomet_enabled,
         bleu_enabled=bleu_enabled,
         llm_enabled=llm_enabled
+        
     )
     
     # Calculate BLEU score if enabled
@@ -280,8 +282,9 @@ if __name__ == "__main__":
         mt_list, 
         ref_list, 
         csv_path="./evaluation/test_data/gemini_result.csv",
-        scomet_enabled=True,
-        dcomet_enabled=True,
+        scomet_enabled=False,
+        dcomet_enabled=False,
         bleu_enabled=True,
+        bleurt_enabled=True,
         llm_enabled=False  # LLM evaluation is more time-consuming, so default to off
     ) 
