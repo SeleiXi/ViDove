@@ -191,17 +191,18 @@ class RemoveTimestampConverter:
 if __name__ == "__main__":
 
     # 单个文件处理
-    converter = RemoveTimestampConverter(
-        single_file=r"evaluation\test_data\28e6c89c-2a04-45d9-8fdb-6b4ed23f6087_ZH.srt", # for single file processing
-        output_file=r"evaluation\test_data\remove_timestamp_result.txt",
-    )
-    converter.process_single_file()
+    # converter = RemoveTimestampConverter(
+    #     single_file=r"evaluation\test_data\28e6c89c-2a04-45d9-8fdb-6b4ed23f6087_ZH.srt", # for single file processing
+    #     output_file=r"evaluation\test_data\remove_timestamp_result.txt",
+    # )
+    # converter.process_single_file()
     
     # 批量处理
-    # converter = RemoveTimestampConverter(
-    #     id_list=r"evaluation\test_data\text_data_test.id",
-    #     target_srt_dir=r"evaluation\test_data\test\srt_output",
-    #     output_dir=r"evaluation\test_data\batch_result",
-    # )
-    # converter.process_id_list_to_separate_files()
+    converter = RemoveTimestampConverter(
+        id_list=r"evaluation\test_data\dovebench.id",
+        target_srt_dir=r"evaluation\test_data\dovebench",
+        output_dir=r"evaluation\test_data\dovebench\remove_timestamp",
+    )
+    print("test111")
+    converter.process_id_list_to_separate_files()
 
